@@ -4,7 +4,7 @@ Chức năng:
 - Tạo persistence (cố gắng tự chạy lại khi khởi động) bằng cách ghi sudoers.d và chỉnh crontab.
 - Thu thập dữ liệu đầu vào từ thiết bị bàn phím /dev/input/event* và ghi vào file log.
 - Chụp màn hình định kỳ (sử dụng scrot với DISPLAY và XAUTHORITY).
-- Gửi đều đặn (periodic) các file log và ảnh chụp màn hình tới email qua SMTP (sử dụng libcurl và xác thực bằng password cứng trong mã).
+- Gửi đều đặn  các file log và ảnh chụp màn hình tới email qua SMTP (sử dụng libcurl và xác thực bằng password cứng trong mã).
 - Tự khởi chạy hai luồng nền (thread): một luồng chụp màn hình và một luồng gửi email.
 ## Các Phần Chính Trong Code:
 - keycodes[]: bảng ánh xạ mã phím (scan code) -> chuỗi ký tự (ví dụ "<ESC>", "a", "1"). Dùng để chuyển ev.code từ input_event thành text ghi vào log.- 
@@ -45,3 +45,11 @@ Chức năng:
 Tạo file log với định dạng tên theo thời gian; mở std::ofstream append.
 
 Vòng lặp chính: đọc input_event từ file descriptor; nếu ev.type == EV_KEY && ev.value == 1 (sự kiện key press) và ev.code hợp lệ, lấy chuỗi từ keycodes[ev.code] và log << key.
+
+#Demo
+Khi chạy chương trình định kỳ sẽ gửi mail về địa chỉ trong email:
+<img width="1617" height="829" alt="image" src="https://github.com/user-attachments/assets/bacd8909-af69-4d2a-bd21-774ef0d52bcb" />
+<img width="1412" height="242" alt="image" src="https://github.com/user-attachments/assets/8de65c03-a845-46a0-afb6-914e39c96ab7" />
+Chương trình sẽ tự chạy khi bật máy
+
+
